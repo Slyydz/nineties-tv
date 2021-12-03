@@ -21,9 +21,9 @@ namespace NinetiesTV
         private static string _dataFilename = "data.csv";
         public static List<Show> GetShows()
         {
-            using(TextReader textReader = new StreamReader(_dataFilename))
+            using (TextReader textReader = new StreamReader(_dataFilename))
             {
-                using(CsvReader csv = new CsvReader(textReader, CultureInfo.CurrentCulture))
+                using (CsvReader csv = new CsvReader(textReader, CultureInfo.CurrentCulture))
                 {
                     csv.Context.RegisterClassMap<ShowMap>();
                     return csv.GetRecords<Show>().ToList();
