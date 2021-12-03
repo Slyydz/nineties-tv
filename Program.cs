@@ -126,7 +126,10 @@ namespace NinetiesTV
         // 13. Return the names of the comedy shows sorted by IMDB rating.
         static List<string> ComediesByRating(List<Show> shows)
         {
-            return shows.Where(s => s.Genres.Contains("Comedy")).Select(s => s.Name).ToList();
+            return shows
+            .OrderByDescending(s => s.ImdbRating)
+            .Where(s => s.Genres.Contains("Comedy"))
+            .Select(s => s.Name).ToList();
         }
 
         // 14. Return the shows with more than one genre ordered by their starting year.
@@ -189,13 +192,14 @@ namespace NinetiesTV
         // 21. Return the show with the most words in the name.
         static Show WordieastName(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return shows.OrderByDescending(s => s.Name.Split().Length)
+            .FirstOrDefault();
         }
 
         // 22. Return the names of all shows as a single string seperated by a comma and a space.
         static string AllNamesWithCommas(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return string.Join(", ", shows.Select(s => s.Name));
         }
 
         // 23. Do the same as above, but put the word "and" between the second-to-last and last show name.
@@ -218,7 +222,7 @@ namespace NinetiesTV
         **************************************************************************************************/
 
         // 1. Return the genres of the shows that started in the 80s.
-        // 2. Print a unique list of geners.
+        // 2. Print a unique list of genres.
         // 3. Print the years 1987 - 2018 along with the number of shows that started in each year (note many years will have zero shows)
         // 4. Assume each episode of a comedy is 22 minutes long and each episode of a show that isn't a comedy is 42 minutes. How long would it take to watch every episode of each show?
         // 5. Assume each show ran each year between its start and end years (which isn't true), which year had the highest average IMDB rating.
