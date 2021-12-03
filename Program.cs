@@ -135,7 +135,7 @@ namespace NinetiesTV
         // 14. Return the shows with more than one genre ordered by their starting year.
         static List<Show> WithMultipleGenresByStartYear(List<Show> shows)
         {
-            return shows.Where(s => s.Genres.Contains("")).ToList();
+            return shows.Where(s => s.Genres.Count() > 1).OrderBy(s => s.StartYear).ToList();
         }
 
         // 15. Return the show with the most episodes.
@@ -175,7 +175,7 @@ namespace NinetiesTV
         static int GoodCrimeShows(List<Show> shows)
         {
             return shows
-            .Where(s => s.ImdbRating > 7.0)
+            .Where(s => s.ImdbRating > 7.0 && s.Genres.Contains("Crime"))
             .Count();
         }
 
@@ -185,8 +185,8 @@ namespace NinetiesTV
         {
             return shows
             .OrderBy(s => s.Name)
-            .Where(s => s.ImdbRating < 8.0 && (s.EndYear - s.StartYear > 10))
-            .FirstOrDefault();
+            .Where(s => (s.ImdbRating < 8))
+            .FirstOrDefault(s => s.EndYear - s.StartYear > 10);
         }
 
         // 21. Return the show with the most words in the name.
