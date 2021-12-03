@@ -72,19 +72,20 @@ namespace NinetiesTV
         // 5. Return the most recent year that any of the shows aired.
         static int MostRecentYear(List<Show> shows)
         {
-            return shows
+            return shows.Max(s => s.EndYear);
         }
 
         // 6. Return the average IMDB rating for all the shows.
         static double AverageRating(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return shows.Average(s => s.ImdbRating);
         }
 
         // 7. Return the shows that started and ended in the 90s.
         static List<Show> OnlyInNineties(List<Show> shows)
         {
-            throw new NotImplementedException();
+            return shows
+            .Where(s => (2000 - s.StartYear <= 9 && 2000 - s.StartYear > 0) && (2000 - s.EndYear <= 9 && 2000 - s.EndYear > 0)).ToList();
         }
 
         // 8. Return the top three highest rated shows.
